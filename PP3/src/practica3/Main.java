@@ -44,16 +44,13 @@ public class Main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "¡Los datos fueron escritos correctamente!",
                         "Datos grabados", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
-                salida.close();
-                
+                salida.close(); 
             }
         } catch(IOException ex01) {
             System.out.println("Error, intente otra vez");
         }
     }
             
-            
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,6 +111,11 @@ public class Main extends javax.swing.JFrame {
 
         saveBtn.setText("Guardar");
         saveBtn.setToolTipText("");
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
         getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
 
         resultsBtn.setText("Resultados");
@@ -124,6 +126,11 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        // TODO add your handling code here:
+        guardar();
+    }//GEN-LAST:event_saveBtnActionPerformed
 
     /**
      * @param args the command line arguments
