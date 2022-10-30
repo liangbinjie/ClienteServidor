@@ -13,8 +13,9 @@ public class MainMethods {
     String menores = "";
     int cant = 0;
     double estaturas = 0;
+    String estudiantes = "";
         
-    public void filter(){
+    public void estadisticas(){
         try {
             DataInputStream entrada = new DataInputStream(new FileInputStream("estudiantes.dat"));
             try {
@@ -42,7 +43,7 @@ public class MainMethods {
                 JOptionPane.showMessageDialog(null, "Estudiantes menores de 10 años\n" + menores);
                 JOptionPane.showMessageDialog(null, "Estudiantes igual o mayores de 10 años\n" + mayores);
                 JOptionPane.showMessageDialog(null, "Estatura promedio de los estudiantes: " + estaturas/cant);
-            };
+            }
         } catch (FileNotFoundException ex03) {
             JOptionPane.showMessageDialog(null, "¡Archivo no encontrado, revise!",
                     "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
@@ -51,4 +52,34 @@ public class MainMethods {
                     "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    public void filter_grade(String grado) {
+        try {
+            DataInputStream entrada = new DataInputStream(new FileInputStream("estudiantes.dat"));
+            try {
+                Estudiantes estudiante = new Estudiantes();
+                while (true) {
+                    estudiante.setNombre(entrada.readUTF());
+                    estudiante.setEdad(entrada.readInt());
+                    estudiante.setEstatura(entrada.readInt());
+                    estudiante.setGrado(entrada.readUTF());
+
+                    if (estudiante.getGrado().equals(grado)) {
+                        estudiantes += "- " + estudiante.getNombre() + "\n";
+                    }
+
+                }
+            } catch (EOFException ex02) {
+                entrada.close();
+                JOptionPane.showMessageDialog(null, "Estudiantes de " + grado + " grado\n" + estudiantes);
+            }
+        } catch (FileNotFoundException ex03) {
+            JOptionPane.showMessageDialog(null, "¡Archivo no encontrado, revise!",
+                    "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex04) {
+            JOptionPane.showMessageDialog(null, "¡Error general, revise!",
+                    "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
 }

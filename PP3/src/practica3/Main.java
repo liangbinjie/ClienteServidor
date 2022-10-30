@@ -75,6 +75,9 @@ public class Main extends javax.swing.JFrame {
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        gradeFilter = new javax.swing.JComboBox<>();
+        filter = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -118,16 +121,30 @@ public class Main extends javax.swing.JFrame {
         });
         getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
 
-        resultsBtn.setText("Resultados");
+        resultsBtn.setText("Estadisticas");
         resultsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resultsBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(resultsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
+        getContentPane().add(resultsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
         getContentPane().add(filler3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, -1, -1));
         getContentPane().add(filler4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, -1));
         getContentPane().add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, -1, -1));
+
+        gradeFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" }));
+        getContentPane().add(gradeFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 90, -1));
+
+        filter.setText("Filtrar");
+        filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterActionPerformed(evt);
+            }
+        });
+        getContentPane().add(filter, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, -1, -1));
+
+        jLabel7.setText("Filtrar estudiantes por grado");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 160, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -140,8 +157,14 @@ public class Main extends javax.swing.JFrame {
     private void resultsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultsBtnActionPerformed
         // TODO add your handling code here:
         MainMethods m = new MainMethods();
-        m.filter();
+        m.estadisticas();
     }//GEN-LAST:event_resultsBtnActionPerformed
+
+    private void filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterActionPerformed
+        // TODO add your handling code here:
+        MainMethods m = new MainMethods();
+        m.filter_grade(gradeFilter.getSelectedItem().toString());
+    }//GEN-LAST:event_filterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,7 +206,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
+    private javax.swing.JButton filter;
     private javax.swing.JComboBox<String> gradeField;
+    private javax.swing.JComboBox<String> gradeFilter;
     private javax.swing.JSpinner heightField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -191,6 +216,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField nameField;
     private javax.swing.JButton resultsBtn;
     private javax.swing.JButton saveBtn;
