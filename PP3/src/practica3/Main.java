@@ -14,7 +14,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Encuenta Compu-Q | Escuela El Tesoro del Saber");
+        setTitle("Encuesta Compu-Q | Escuela El Tesoro del Saber");
     }
     
     public void limpiar() {
@@ -119,6 +119,11 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
 
         resultsBtn.setText("Resultados");
+        resultsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultsBtnActionPerformed(evt);
+            }
+        });
         getContentPane().add(resultsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
         getContentPane().add(filler3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, -1, -1));
         getContentPane().add(filler4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, -1));
@@ -131,6 +136,12 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         guardar();
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void resultsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultsBtnActionPerformed
+        // TODO add your handling code here:
+        MainMethods m = new MainMethods();
+        m.filter();
+    }//GEN-LAST:event_resultsBtnActionPerformed
 
     /**
      * @param args the command line arguments
