@@ -32,7 +32,7 @@ public class Main extends javax.swing.JFrame {
             estudiante.setEstatura((Integer) heightField.getValue());
             estudiante.setGrado(gradeField.getSelectedItem().toString());
             
-            if (nameField.getText().isEmpty() || estudiante.getEdad() <= 0 || estudiante.getHeight() <= 0) {
+            if (nameField.getText().isEmpty() || estudiante.getEdad() <= 0 || estudiante.getEstatura()<= 0) {
             
                 DataOutputStream salida = new DataOutputStream(new FileOutputStream("estudiantes.dat", true));
                 salida.writeUTF(estudiante.getNombre());
