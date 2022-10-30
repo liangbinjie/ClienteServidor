@@ -33,7 +33,9 @@ public class Main extends javax.swing.JFrame {
             estudiante.setGrado(gradeField.getSelectedItem().toString());
             
             if (nameField.getText().isEmpty() || estudiante.getEdad() <= 0 || estudiante.getEstatura()<= 0) {
-            
+                JOptionPane.showMessageDialog(null, "No deje datos en blanco", "ERROR", JOptionPane.ERROR_MESSAGE);
+                
+            } else {
                 DataOutputStream salida = new DataOutputStream(new FileOutputStream("estudiantes.dat", true));
                 salida.writeUTF(estudiante.getNombre());
                 salida.writeInt(estudiante.getEdad());
@@ -43,8 +45,7 @@ public class Main extends javax.swing.JFrame {
                         "Datos grabados", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
                 salida.close();
-            } else {
-                JOptionPane.showMessageDialog(null, "No deje datos en blanco", "ERROR", JOptionPane.ERROR_MESSAGE);
+                
             }
         } catch(IOException ex01) {
             System.out.println("Error, intente otra vez");
