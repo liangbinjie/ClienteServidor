@@ -14,7 +14,7 @@ public class MainMethods {
     int cant = 0;
     double estaturas = 0;
     String estudiantes = "";
-        
+       
     public void estadisticas(){
         try {
             DataInputStream entrada = new DataInputStream(new FileInputStream("estudiantes.dat"));
