@@ -1,0 +1,328 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
+public class Main extends javax.swing.JFrame {
+
+    public Main() {
+        initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Estadistica de peso");
+        
+    }
+    
+    public void limpiar() {
+        nombre.setText("");
+        peso.setValue(0);
+    }
+    
+    public void agregar() {
+        try {
+            Estudiantes n = new Estudiantes();
+            n.setNombre(nombre.getText());
+            float valor = (Float) peso.getValue();
+            n.setPeso(valor);
+            
+            if (nombre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre");
+            } else {
+                DataOutputStream salida = new DataOutputStream(
+                        new FileOutputStream("estudiantes.dat", true));
+                salida.writeUTF(n.getNombre());
+                salida.writeFloat(n.getPeso());
+
+                JOptionPane.showMessageDialog(null, "¡Los datos fueron escritos correctamente!",
+                        "Datos grabados", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+                salida.close();
+            }
+        } catch (IOException ex01) {
+            JOptionPane.showMessageDialog(null, "¡Ocurrió un error al guardar, revise!",
+                    "Error al guardar", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void estadisticas() {
+        int n40 = 0, n50 =0, n60=0, n62=0;
+        String n63 = "";
+        try {
+            DataInputStream entrada = new DataInputStream(new FileInputStream("estudiantes.dat"));
+            
+            try {
+                Estudiantes n = new Estudiantes();
+                while (true) {
+                    n.setNombre(entrada.readUTF());
+                    n.setPeso(entrada.readFloat());
+                    if (n.getPeso() <= 40) {
+                        n40++;
+                    } else if (40 < n.getPeso() && n.getPeso() <= 50) {
+                        n50++;
+                    } else if (50 < n.getPeso() && n.getPeso() <= 60) {
+                        n60++;
+                    } else if (60 < n.getPeso() && n.getPeso() <= 62) {
+                        n62++;
+                    } else if (n.getPeso() > 62) {
+                        n63 += "Nombre: " + n.getNombre() + " | Peso: " + n.getPeso() +"\n";
+                    }
+                }
+            } catch (EOFException ex02) {
+                entrada.close();
+                JOptionPane.showMessageDialog(null, "Cantidad de niños con peso menor a 40kg: " + n40
+                    + "\nCantidad de niños con peso entre 41kg a 50kg: " + n50
+                    + "\nCantidad de niños con peso entre 51kg a 60kg: " + n60
+                    + "\nCantidad de niños con peso entre 61kg a 62kg: " + n62);
+            }
+            JOptionPane.showMessageDialog(null, "niños con peso mayor a 62kg:\n" + n63);
+        } catch (FileNotFoundException ex03) {
+            JOptionPane.showMessageDialog(null, "¡Archivo no encontrado, revise!",
+                    "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex04) {
+            JOptionPane.showMessageDialog(null, "¡Error general, revise!",
+                    "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void promedio() {
+        int cant = 0;
+        double prom = 0;
+        try {
+            DataInputStream entrada = new DataInputStream(new FileInputStream("estudiantes.dat"));
+            
+            try {
+                Estudiantes n = new Estudiantes();
+                while (true) {
+                    n.setNombre(entrada.readUTF());
+                    n.setPeso(entrada.readFloat());
+                    cant++;
+                    prom += n.getPeso();
+                }
+            } catch (EOFException ex02) {
+                entrada.close();
+                JOptionPane.showMessageDialog(null, "El promedio de pesos de los ninos es de: " + String.format("%.2f", prom/cant) +"kg");
+            }
+        } catch (FileNotFoundException ex03) {
+            JOptionPane.showMessageDialog(null, "¡Archivo no encontrado, revise!",
+                    "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex04) {
+            JOptionPane.showMessageDialog(null, "¡Error general, revise!",
+                    "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+        }  
+        
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        promBtn = new javax.swing.JButton();
+        estadistBtn = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        peso = new javax.swing.JSpinner();
+        nombre = new javax.swing.JTextField();
+        addBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setText("Escuela");
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Estadisticas de peso de los niños de la escuela");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(198, 198, 198)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(97, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, -1));
+
+        promBtn.setText("Promedio");
+        promBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                promBtnActionPerformed(evt);
+            }
+        });
+
+        estadistBtn.setText("Estadisticas");
+        estadistBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadistBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(340, Short.MAX_VALUE)
+                .addComponent(estadistBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(promBtn)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(promBtn)
+                    .addComponent(estadistBtn))
+                .addGap(16, 16, 16))
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 530, -1));
+
+        peso.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), Float.valueOf(400.0f), Float.valueOf(1.0f)));
+
+        addBtn.setText("Agregar");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nombre");
+
+        jLabel3.setText("Peso");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(peso, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(96, 96, 96))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(179, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(peso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(addBtn)
+                .addGap(113, 113, 113))
+        );
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 530, 390));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+
+        agregar();
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void estadistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadistBtnActionPerformed
+
+        estadisticas();
+    }//GEN-LAST:event_estadistBtnActionPerformed
+
+    private void promBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promBtnActionPerformed
+
+        promedio();
+    }//GEN-LAST:event_promBtnActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Main().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
+    private javax.swing.JButton estadistBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JSpinner peso;
+    private javax.swing.JButton promBtn;
+    // End of variables declaration//GEN-END:variables
+}
